@@ -999,6 +999,7 @@ python lerobot/scripts/visualize_dataset.py \
   --repo-id ${HF_USER}/eval_act_koch_test
 ```
 
-## 6. Next step
+## 6. Add the Docker
+Use the jetson-container similar format to overlay on top the different packages
 
 Join our [Discord](https://discord.com/invite/s3KuuzsPFb) to collaborate on data collection and help us train a fully open-source foundational models for robotics!
