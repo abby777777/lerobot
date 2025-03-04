@@ -9,6 +9,7 @@ import traceback
 from contextlib import nullcontext
 from copy import copy
 from functools import cache
+import pdb
 
 import cv2
 import torch
@@ -66,6 +67,7 @@ def log_control_info(robot: Robot, dt_s, episode_index=None, frame_index=None, f
 
     info_str = " ".join(log_items)
     logging.info(info_str)
+    #pdb.set_trace()
 
 
 @cache
@@ -212,14 +214,18 @@ def control_loop(
     fps: int | None = None,
 ):
     # TODO(rcadene): Add option to record logs
+    #import pdb
+    #pdb.set_trace()
     if not robot.is_connected:
         robot.connect()
-
+    import pdb
+    #pdb.set_trace()
     if events is None:
         events = {"exit_early": False}
 
     if control_time_s is None:
-        control_time_s = float("inf")
+        #ABBY CHANGE
+        control_time_s = 300
 
     if teleoperate and policy is not None:
         raise ValueError("When `teleoperate` is True, `policy` should be None.")
@@ -236,13 +242,14 @@ def control_loop(
         start_loop_t = time.perf_counter()
 
         if teleoperate:
+            #pdb.set_trace()
             observation, action = robot.teleop_step(record_data=True)
         else:
             observation = robot.capture_observation()
 
             if policy is not None:
                 pred_action = predict_action(observation, policy, device, use_amp)
-                # Action can eventually be clipped using `max_relative_target`,
+                # Action cann eventually be clipped using `max_relative_target`,
                 # so action actually sent is saved in the dataset.
                 action = robot.send_action(pred_action)
                 action = {"action": action}
@@ -252,10 +259,17 @@ def control_loop(
             dataset.add_frame(frame)
 
         if display_cameras and not is_headless():
+            
+
+
             image_keys = [key for key in observation if "image" in key]
             for key in image_keys:
-                cv2.imshow(key, cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR))
-            cv2.waitKey(1)
+                image_data = observation[key].numpy()
+                #SScap = cv2.VideoCatpure(0)
+                #print(f"DEBUG: Displaying {key} image with shape: {image_data.shape}")
+                #cv2.imshow(key, cv2.cvtColor(image_data, cv2.COLOR_RGB2BGR))
+                #cv2.imshow(key, cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR))
+                cv2.waitKey(1)
 
         if fps is not None:
             dt_s = time.perf_counter() - start_loop_t
