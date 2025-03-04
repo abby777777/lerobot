@@ -179,7 +179,7 @@ leader_arm = DynamixelMotorsBus(leader_config)
 follower_arm = DynamixelMotorsBus(follower_config)
 ```
 
-IMPORTANTLY: Now that you have your ports, update [`KochRobotConfig`](../lerobot/common/robot_devices/robots/configs.py). You will find something like:
+IMPORTANTLY: Now that you have your ports, update [`KochRobotConfig`](../lerobot/common/robot_devices/robots/configs.py) in the configs.py file. You will find something like:
 ```python
 @RobotConfig.register_subclass("koch")
 @dataclass
@@ -264,7 +264,7 @@ Congratulations! Both arms are now properly configured and connected. You won't 
 
 **Troubleshooting**:
 
-If the configuration process fails, you may need to do the configuration process via the Dynamixel Wizard.
+If the configuration process fails, you may need to do the configuration process via the Dynamixel Wizard. If it is failing to connect to the motor, it may be that the connection of the data wire (yellow) is too loose.
 
 Known failure modes:
 - Calling `arm.connect()` raises `OSError: No motor found, but one new motor expected. Verify power cord is plugged in and retry` on Ubuntu 22.
