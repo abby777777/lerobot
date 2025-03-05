@@ -223,11 +223,7 @@ class KochRobotConfig(ManipulatorRobotConfig):
     follower_arms: dict[str, MotorsBusConfig] = field(
         default_factory=lambda: {
             "main": DynamixelMotorsBusConfig(
-<<<<<<< HEAD
-                port= "/dev/ttyACM_kochfollower",
-=======
                 port="/dev/ttyACM_kochfollower",
->>>>>>> temp2
                 motors={
                     # name: (index, model)
                     "shoulder_pan": [1, "xl430-w250"],
@@ -243,37 +239,12 @@ class KochRobotConfig(ManipulatorRobotConfig):
 
     cameras: dict[str, CameraConfig] = field(
         default_factory=lambda: {
-<<<<<<< HEAD
-            # "laptop": OpenCVCameraConfig(
-            #     camera_index=0,
-            #     fps=30,
-            #     width=640,
-            #     height=480,
-            # ),
-            # "phone": OpenCVCameraConfig(
-            #     camera_index=1,
-            #     fps=30,
-            #     width=640,
-            #     height=480,
-            # ),
-=======
->>>>>>> temp2
             "logitech1": OpenCVCameraConfig(
                 camera_index = "/dev/video0",
                 fps=10,
                 width= 1280,
                 height = 720,
                 color_mode = 'rgb'
-<<<<<<< HEAD
-=======
-            ),
-            "logitech2": OpenCVCameraConfig(
-                camera_index = "/dev/video2",
-                fps=10,
-                width= 1280,
-                height = 720,
-                color_mode = 'rgb'
->>>>>>> temp2
             ),
             "logitech2": OpenCVCameraConfig(
                 camera_index = "/dev/video2",
